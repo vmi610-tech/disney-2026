@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🏰 Disney World 2026</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Disney 2026">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d0d2b">
+<link rel="apple-touch-icon" href="apple-touch-icon-disney.png">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Disney+World+2026%22%2C%22short_name%22%3A%22Disney+2026%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230d0d2b%22%2C%22theme_color%22%3A%22%230d0d2b%22%7D">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --magic: #0d0d2b; --gold: #f5c842; --pink: #ff6eb4; --blue: #4fc3f7; --purple: #7c3aed; --teal: #00e5ff; --green: #69f0ae; --white: #fff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--magic); background-image: radial-gradient(ellipse at 15% 10%, rgba(124,58,237,0.4) 0%, transparent 45%), radial-gradient(ellipse at 85% 90%, rgba(79,195,247,0.25) 0%, transparent 45%), radial-gradient(ellipse at 50% 50%, rgba(255,110,180,0.1) 0%, transparent 60%); font-family: 'Nunito', sans-serif; color: var(--white); min-height: 100vh; overflow-x: hidden; }
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--d) ease-in-out infinite var(--dl); }
+  @keyframes twinkle { 0%,100%{opacity:.15;transform:scale(1)} 50%{opacity:1;transform:scale(1.5)} }
+  .wrapper { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 60px; }
+  .header { text-align: center; padding: 60px 20px 30px; padding-top: max(60px, calc(env(safe-area-inset-top) + 40px)); }
+  .castle { font-size: 64px; display: block; animation: float 3s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(245,200,66,0.6)); }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .logo-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px 0 6px; }
+  .dance-logo-placeholder { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); background: linear-gradient(135deg, #7c3aed, #4fc3f7); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 14px rgba(245,200,66,0.4); }
+  .header h1 { font-family: 'Fredoka One', cursive; font-size: 32px; background: linear-gradient(135deg, var(--gold), var(--pink), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; margin-bottom: 4px; }
+  .header .subtitle { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .header .dates { display: inline-block; margin-top: 12px; background: rgba(245,200,66,0.15); border: 1px solid rgba(245,200,66,0.4); border-radius: 20px; padding: 6px 18px; font-size: 13px; font-weight: 800; color: var(--gold); }
+  .resort-badge { margin: 12px 20px 0; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 10px 16px; font-size: 13px; color: rgba(255,255,255,0.8); text-align: center; }
+  .resort-badge strong { color: var(--blue); }
+  .section-label { font-family: 'Fredoka One', cursive; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); padding: 24px 20px 8px; }
+  .day-card { margin: 0 16px 14px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .day-header { padding: 14px 18px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .day-emoji { font-size: 28px; flex-shrink: 0; }
+  .day-title-group { flex: 1; min-width: 0; }
+  .day-date { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.7; }
+  .day-name { font-family: 'Fredoka One', cursive; font-size: 20px; line-height: 1.1; }
+  .day-sub { font-size: 11px; font-weight: 600; opacity: 0.65; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chevron { font-size: 12px; opacity: 0.5; transition: transform 0.3s; flex-shrink: 0; }
+  .day-card.open .chevron { transform: rotate(180deg); }
+  .day-body { display: none; background: rgba(0,0,0,0.3); padding: 0 0 12px; }
+  .day-card.open .day-body { display: block; }
+  .time-block { padding: 12px 18px 4px; }
+  .time-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.45; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .time-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
+  .item { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: 14px; font-weight: 600; line-height: 1.4; }
+  .item-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 6px; flex-shrink: 0; }
+  .item a { color: var(--teal); text-decoration: none; font-weight: 700; }
+  .booked-tag { display: inline-block; background: rgba(105,240,174,0.15); border: 1px solid rgba(105,240,174,0.35); border-radius: 6px; padding: 1px 7px; font-size: 10px; font-weight: 800; color: var(--green); vertical-align: middle; margin-left: 4px; }
+  .conf-num { font-size: 10px; color: rgba(255,255,255,0.3); font-weight: 700; display: block; margin-top: 1px; padding-left: 14px; }
+  .giuliana-tag { display: inline-block; background: linear-gradient(135deg, rgba(255,110,180,0.25), rgba(124,58,237,0.25)); border: 1px solid rgba(255,110,180,0.45); border-radius: 6px; padding: 1px 7px; font-size: 10px; font-weight: 800; color: var(--pink); margin-right: 4px; }
+  .day-sat .day-header { background: linear-gradient(135deg, #1a1a5e, #2d1b69); border-left: 4px solid #9b59b6; }
+  .day-sun .day-header { background: linear-gradient(135deg, #1a3a5e, #0d2d4a); border-left: 4px solid var(--blue); }
+  .day-mon .day-header { background: linear-gradient(135deg, #5e1a1a, #4a0d2d); border-left: 4px solid var(--pink); }
+  .day-tue .day-header { background: linear-gradient(135deg, #1a4a2a, #0d3320); border-left: 4px solid var(--green); }
+  .day-wed .day-header { background: linear-gradient(135deg, #3a1a1a, #4a1a0d); border-left: 4px solid #ff8c42; }
+  .day-thu .day-header { background: linear-gradient(135deg, #3a2a1a, #2d1a0d); border-left: 4px solid var(--gold); }
+  .dining-strip { margin: 0 16px 14px; border-radius: 20px; background: rgba(105,240,174,0.06); border: 1px solid rgba(105,240,174,0.2); padding: 16px 18px; }
+  .dining-strip h3 { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--green); margin-bottom: 4px; }
+  .dining-all-booked { font-size: 11px; font-weight: 800; color: var(--green); background: rgba(105,240,174,0.1); border: 1px solid rgba(105,240,174,0.25); border-radius: 8px; padding: 6px 10px; margin-bottom: 12px; }
+  .dining-row { display: flex; align-items: flex-start; gap: 8px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+  .dining-row:last-child { border-bottom: none; }
+  .dining-check { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .dining-day { font-weight: 800; color: var(--gold); min-width: 34px; font-size: 12px; padding-top: 1px; }
+  .dining-info { flex: 1; min-width: 0; }
+  .dining-name { font-weight: 700; }
+  .dining-name a { color: var(--teal); text-decoration: none; }
+  .dining-meta { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 600; margin-top: 2px; }
+  .dining-conf { font-size: 10px; color: rgba(255,255,255,0.28); font-weight: 700; margin-top: 1px; }
+  .quick-ref { margin: 0 16px 14px; border-radius: 20px; background: rgba(245,200,66,0.07); border: 1px solid rgba(245,200,66,0.2); overflow: hidden; }
+  .quick-ref-header { padding: 14px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; background: rgba(245,200,66,0.08); user-select: none; -webkit-tap-highlight-color: transparent; }
+  .quick-ref-header h3 { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--gold); flex: 1; }
+  .quick-ref-body { display: none; padding: 12px 18px 16px; }
+  .quick-ref.open .quick-ref-body { display: block; }
+  .quick-ref.open .chevron { transform: rotate(180deg); }
+  .ref-item { display: flex; gap: 10px; padding: 7px 0; font-size: 13px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .ref-item:last-child { border-bottom: none; }
+  .ref-label { color: var(--gold); font-weight: 800; font-size: 10px; min-width: 76px; padding-top: 2px; letter-spacing: 0.5px; }
+  .footer { text-align: center; padding: 24px 20px; font-size: 12px; color: rgba(255,255,255,0.25); }
+  .footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="wrapper">
+  <div class="header">
+    <span class="castle">🏰</span>
+    <div class="logo-row"><div class="dance-logo-placeholder">💃</div><h1>Disney World<br>2026</h1></div>
+    <div class="subtitle">The Dance Centre Group Trip</div>
+    <div class="dates">📅 June 27 – July 2, 2026</div>
+    <div class="resort-badge">🏨 <strong>Disney's Port Orleans Resort — Riverside</strong></div>
+  </div>
+  <div class="section-label">🍽️ Dining — All Booked!</div>
+  <div class="dining-strip">
+    <h3>🍽️ Reservations</h3>
+    <div class="dining-all-booked">✅ All 6 restaurants confirmed — nothing left to do!</div>
+    <div class="dining-row"><div class="dining-check">✅</div><div class="dining-day">SAT</div><div class="dining-info"><div class="dining-name"><a href="https://www.exploretock.com/stkorlando" target="_blank">STK Orlando</a></div><div class="dining-meta">Disney Springs · Dinner · Jun 27</div><div class="dining-conf">Pre-booked</div></div></div>
+    <div class="dining-row"><div class="dining-check">✅</div><div class="dining-day">SUN</div><div class="dining-info"><div class="dining-name"><a href="https://disneyworld.disney.go.com/dining/epcot/la-hacienda-de-san-angel/" target="_blank">La Hacienda de San Angel</a></div><div class="dining-meta">EPCOT World Showcase · 8:00 PM · Jun 28 🎆</div><div class="dining-conf">#356118177470</div></div></div>
+    <div class="dining-row"><div class="dining-check">✅</div><div class="dining-day">MON</div><div class="dining-info"><div class="dining-name"><a href="https://disneyworld.disney.go.com/dining/magic-kingdom/plaza-restaurant/" target="_blank">The Plaza Restaurant</a></div><div class="dining-meta">Magic Kingdom · 7:05 PM · Jun 29</div><div class="dining-conf">#356118180612</div></div></div>
+    <div class="dining-row"><div class="dining-check">✅</div><div class="dining-day">TUE</div><div class="dining-info"><div class="dining-name"><a href="https://disneyworld.disney.go.com/dining/hollywood-studios/ogas-cantina/" target="_blank">Oga's Cantina</a></div><div class="dining-meta">Hollywood Studios · 2:00 PM · Jun 30</div><div class="dining-conf">#356118175852</div></div></div>
+    <div class="dining-row"><div class="dining-check">✅</div><div class="dining-day">TUE</div><div class="dining-info"><div class="dining-name"><a href="https://disneyworld.disney.go.com/dining/polynesian-village-resort/ohana/" target="_blank">'Ohana</a></div><div class="dining-meta">Polynesian Village Resort · 6:50 PM · Jun 30 🌴</div><div class="dining-conf">#356118176064</div></div></div>
+    <div class="dining-row"><div class="dining-check">✅</div><div class="dining-day">WED</div><div class="dining-info"><div class="dining-name"><a href="https://disneyworld.disney.go.com/dining/animal-kingdom/tiffins-restaurant/" target="_blank">Tiffins</a></div><div class="dining-meta">Animal Kingdom · 5:30 PM · Jul 1</div><div class="dining-conf">#356118177504</div></div></div>
+  </div>
+  <div class="section-label">📅 Daily Schedule</div>
+  <div class="day-card day-sat" onclick="toggle(this)">
+    <div class="day-header"><div class="day-emoji">✈️</div><div class="day-title-group"><div class="day-date">Saturday, June 27</div><div class="day-name">Arrival Day</div><div class="day-sub">Disney Springs → STK Dinner</div></div><div class="chevron">▼</div></div>
+    <div class="day-body">
+      <div class="time-block"><div class="time-label">✈️ Travel</div><div class="item"><div class="item-dot"></div>Flight PHL → MCO · 12:21 PM → 2:57 PM</div><div class="item"><div class="item-dot"></div>Arrive resort ~4:00–5:00 PM · Check in</div><div class="item"><div class="item-dot"></div>Optional pool / rest</div></div>
+      <div class="time-block"><div class="time-label">🌙 Evening</div><div class="item"><div class="item-dot"></div>Boat to <strong>Disney Springs</strong></div><div class="item"><div class="item-dot"></div><div><a href="https://www.exploretock.com/stkorlando" target="_blank">STK Orlando</a> — party of 8 <span class="booked-tag">✓ BOOKED</span><span class="conf-num">Pre-booked</span></div></div><div class="item"><div class="item-dot"></div>Walk around Disney Springs · boat back</div></div>
+    </div>
+  </div>
+  <div class="day-card day-sun" onclick="toggle(this)">
+    <div class="day-header"><div class="day-emoji">🌍</div><div class="day-title-group"><div class="day-date">Sunday, June 28</div><div class="day-name">EPCOT</div><div class="day-sub">La Hacienda 8 PM · Fireworks from table 🎆</div></div><div class="chevron">▼</div></div>
+    <div class="day-body">
+      <div class="time-block"><div class="time-label">🚍 Morning — Early Entry 8:30 AM</div><div class="item"><div class="item-dot"></div>Guardians of the Galaxy: Cosmic Rewind</div><div class="item"><div class="item-dot"></div>Soarin' Around the World</div><div class="item"><div class="item-dot"></div>Test Track</div></div>
+      <div class="time-block"><div class="time-label">🌍 Afternoon</div><div class="item"><div class="item-dot"></div>World Showcase food walk</div><div class="item"><div class="item-dot"></div>Remy's Ratatouille Adventure</div></div>
+      <div class="time-block"><div class="time-label">🍽️ Dinner — 8:00 PM</div><div class="item"><div class="item-dot"></div><div><a href="https://disneyworld.disney.go.com/dining/epcot/la-hacienda-de-san-angel/" target="_blank">La Hacienda de San Angel</a> — lagoon view <span class="booked-tag">✓ BOOKED</span><span class="conf-num">#356118177470</span></div></div></div>
+      <div class="time-block"><div class="time-label">🌙 Evening</div><div class="item"><div class="item-dot"></div>🎆 EPCOT Forever fireworks — from the table!</div><div class="item"><div class="item-dot"></div>Bus back to resort</div></div>
+    </div>
+  </div>
+  <div class="day-card day-mon" onclick="toggle(this)">
+    <div class="day-header"><div class="day-emoji">🎭</div><div class="day-title-group"><div class="day-date">Monday, June 29</div><div class="day-name">Magic Kingdom</div><div class="day-sub">⭐ Giuliana's Parade · Plaza Dinner 7:05 PM</div></div><div class="chevron">▼</div></div>
+    <div class="day-body">
+      <div class="time-block"><div class="time-label">🌅 7:30 AM — Rehearsal</div><div class="item"><div class="item-dot"></div><span class="giuliana-tag">💃 Giuliana</span> Bus Letter M — departs resort 7:30 AM</div><div class="item"><div class="item-dot"></div>Rehearsal at Disney's Coronado Springs Resort</div><div class="item"><div class="item-dot"></div>Wear dance attire + Red Dance Shoes</div><div class="item"><div class="item-dot"></div>Bring All Access Pass (Park Hopper NOT needed)</div><div class="item"><div class="item-dot"></div>One parent meet at bus pick-up ~11:00 AM</div></div>
+      <div class="time-block"><div class="time-label">🎠 1:25 PM — Parade!</div><div class="item"><div class="item-dot"></div>Meet at Carousel of Progress (side exit, Tomorrowland)</div><div class="item"><div class="item-dot"></div><span class="giuliana-tag">💃 Giuliana performs!</span> Parade @ 2:15 PM 🎉</div><div class="item"><div class="item-dot"></div>Park Hopper Ticket required for all family & friends</div><div class="item"><div class="item-dot"></div>Space Mountain, Pirates, Haunted Mansion</div></div>
+      <div class="time-block"><div class="time-label">🍽️ Dinner — 7:05 PM</div><div class="item"><div class="item-dot"></div><div><a href="https://disneyworld.disney.go.com/dining/magic-kingdom/plaza-restaurant/" target="_blank">The Plaza Restaurant</a> — inside Magic Kingdom <span class="booked-tag">✓ BOOKED</span><span class="conf-num">#356118180612</span></div></div></div>
+      <div class="time-block"><div class="time-label">🌙 Evening</div><div class="item"><div class="item-dot"></div>MK fireworks — OR hop to EPCOT Forever (optional)</div><div class="item"><div class="item-dot"></div>Bus back to resort</div></div>
+    </div>
+  </div>
+  <div class="day-card day-tue" onclick="toggle(this)">
+    <div class="day-header"><div class="day-emoji">🎬</div><div class="day-title-group"><div class="day-date">Tuesday, June 30</div><div class="day-name">Hollywood Studios</div><div class="day-sub">Oga's 2 PM · 'Ohana 6:50 PM 🌴</div></div><div class="chevron">▼</div></div>
+    <div class="day-body">
+      <div class="time-block"><div class="time-label">🎬 Morning — Early Entry 8:30 AM</div><div class="item"><div class="item-dot"></div>Rise of the Resistance — first thing!</div><div class="item"><div class="item-dot"></div>Millennium Falcon: Smugglers Run</div><div class="item"><div class="item-dot"></div>Slinky Dog Dash</div><div class="item"><div class="item-dot"></div>Tower of Terror</div></div>
+      <div class="time-block"><div class="time-label">🌌 2:00 PM — Galaxy's Edge</div><div class="item"><div class="item-dot"></div><div><a href="https://disneyworld.disney.go.com/dining/hollywood-studios/ogas-cantina/" target="_blank">Oga's Cantina</a> <span class="booked-tag">✓ BOOKED</span><span class="conf-num">#356118175852</span></div></div><div class="item"><div class="item-dot"></div>Blue & Green Milk 🥛 · browse Galaxy's Edge</div><div class="item"><div class="item-dot"></div>Savi's Workshop / Droid Depot (optional)</div><div class="item"><div class="item-dot"></div>Fantasmic (if scheduled)</div></div>
+      <div class="time-block"><div class="time-label">🌊 ~5:00 PM</div><div class="item"><div class="item-dot"></div>Head back to Port Orleans — freshen up</div></div>
+      <div class="time-block"><div class="time-label">🍽️ Dinner — 6:50 PM</div><div class="item"><div class="item-dot"></div><div><a href="https://disneyworld.disney.go.com/dining/polynesian-village-resort/ohana/" target="_blank">'Ohana</a> — Polynesian Village Resort · party of 8 <span class="booked-tag">✓ BOOKED</span><span class="conf-num">#356118176064</span></div></div></div>
+      <div class="time-block"><div class="time-label">🌙 Evening</div><div class="item"><div class="item-dot"></div>🏖️ Fireworks on the Polynesian beach 🌴</div><div class="item"><div class="item-dot"></div>Bus back to resort</div></div>
+    </div>
+  </div>
+  <div class="day-card day-wed" onclick="toggle(this)">
+    <div class="day-header"><div class="day-emoji">🦁</div><div class="day-title-group"><div class="day-date">Wednesday, July 1</div><div class="day-name">Animal Kingdom</div><div class="day-sub">Tiffins 5:30 PM · Magic Kingdom Finale 🎆</div></div><div class="chevron">▼</div></div>
+    <div class="day-body">
+      <div class="time-block"><div class="time-label">🌅 Morning</div><div class="item"><div class="item-dot"></div>Resort pool / slow start</div><div class="item"><div class="item-dot"></div>Bus to Animal Kingdom</div></div>
+      <div class="time-block"><div class="time-label">🦁 Animal Kingdom</div><div class="item"><div class="item-dot"></div>Avatar: Flight of Passage</div><div class="item"><div class="item-dot"></div>Na'vi River Journey</div><div class="item"><div class="item-dot"></div>Kilimanjaro Safaris</div><div class="item"><div class="item-dot"></div>Festival of the Lion King</div></div>
+      <div class="time-block"><div class="time-label">🍽️ Dinner — 5:30 PM</div><div class="item"><div class="item-dot"></div><div><a href="https://disneyworld.disney.go.com/dining/animal-kingdom/tiffins-restaurant/" target="_blank">Tiffins Restaurant</a> — Animal Kingdom <span class="booked-tag">✓ BOOKED</span><span class="conf-num">#356118177504</span></div></div></div>
+      <div class="time-block"><div class="time-label">🌙 Evening — Park Hop to Magic Kingdom</div><div class="item"><div class="item-dot"></div>Rides & exploring — last night! 🎉</div><div class="item"><div class="item-dot"></div>🎆 Magic Kingdom fireworks — grand finale!</div><div class="item"><div class="item-dot"></div>Bus back to resort</div></div>
+    </div>
+  </div>
+  <div class="day-card day-thu" onclick="toggle(this)">
+    <div class="day-header"><div class="day-emoji">🧳</div><div class="day-title-group"><div class="day-date">Thursday, July 2</div><div class="day-name">Departure Day</div><div class="day-sub">MCO → PHL · Home by 2:40 PM</div></div><div class="chevron">▼</div></div>
+    <div class="day-body">
+      <div class="time-block"><div class="time-label">🌅 Morning</div><div class="item"><div class="item-dot"></div>Sleep in · pack bags · optional pool</div><div class="item"><div class="item-dot"></div>Check out</div></div>
+      <div class="time-block"><div class="time-label">✈️ Flight</div><div class="item"><div class="item-dot"></div>MCO → PHL · 12:04 PM → 2:40 PM</div></div>
+    </div>
+  </div>
+  <div class="section-label">⚡ Quick Reference</div>
+  <div class="quick-ref" onclick="toggleRef(this)">
+    <div class="quick-ref-header"><span style="font-size:20px">⚡</span><h3>Good to Know</h3><div class="chevron" style="color:var(--gold)">▼</div></div>
+    <div class="quick-ref-body">
+      <div class="ref-item"><div class="ref-label">DINING</div><div>All 6 restaurants booked ✅ — nothing left to do!</div></div>
+      <div class="ref-item"><div class="ref-label">LIGHTNING</div><div>Lightning Lane opens June 20 @ 7:00 AM</div></div>
+      <div class="ref-item"><div class="ref-label">EARLY ENTRY</div><div>Port Orleans guests enter all parks 30 min early — use it for Rise of the Resistance & Cosmic Rewind!</div></div>
+      <div class="ref-item"><div class="ref-label">TRANSPORT</div><div>Bus = all parks · Boat = Disney Springs only</div></div>
+      <div class="ref-item"><div class="ref-label">PARADE DAY</div><div>Giuliana performs Mon Jun 29 @ 2:15 PM — Carousel of Progress, Tomorrowland ⭐</div></div>
+      <div class="ref-item"><div class="ref-label">WATER PARKS</div><div>Typhoon Lagoon & Blizzard Beach available as optional extras</div></div>
+    </div>
+  </div>
+  <div class="footer">✨ Made with magic for <span>The Dance Centre</span> group · Disney World June 2026 ✨</div>
+</div>
+<script>
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--dl:-${Math.random()*4}s;`;
+    starsEl.appendChild(s);
+  }
+  function toggle(card) { card.classList.toggle('open'); }
+  function toggleRef(el) { el.classList.toggle('open'); }
+</script>
+</body>
+</html>
