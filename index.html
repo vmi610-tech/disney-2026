@@ -13,6 +13,12 @@
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Disney+World+2026%22%2C%22short_name%22%3A%22Disney+2026%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230d0d2b%22%2C%22theme_color%22%3A%22%230d0d2b%22%7D">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  /* Font override — force Fredoka One on day names, section labels, headers to match live site */
+  .day-name, .header h1, .dining-strip h3, .quick-ref-header h3, .section-label {
+    font-family: 'Fredoka One', cursive !important;
+  }
+</style>
+<style>
   :root { --magic: #0d0d2b; --gold: #f5c842; --pink: #ff6eb4; --blue: #4fc3f7; --purple: #7c3aed; --teal: #00e5ff; --green: #69f0ae; --white: #fff; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--magic); background-image: radial-gradient(ellipse at 15% 10%, rgba(124,58,237,0.4) 0%, transparent 45%), radial-gradient(ellipse at 85% 90%, rgba(79,195,247,0.25) 0%, transparent 45%), radial-gradient(ellipse at 50% 50%, rgba(255,110,180,0.1) 0%, transparent 60%); font-family: 'Nunito', sans-serif; color: var(--white); min-height: 100vh; overflow-x: hidden; }
@@ -161,7 +167,7 @@
     <div class="quick-ref-header"><span style="font-size:20px">⚡</span><h3>Good to Know</h3><div class="chevron" style="color:var(--gold)">▼</div></div>
     <div class="quick-ref-body">
       <div class="ref-item"><div class="ref-label">DINING</div><div>All 6 restaurants booked ✅ — nothing left to do!</div></div>
-      <div class="ref-item"><div class="ref-label">LIGHTNING</div><div>Lightning Lane opens June 20 @ 7:00 AM</div></div>
+      <div class="ref-item"><div class="ref-label">LIGHTNING</div><div>Lightning Lane opens June 20 @ 7:00 AM — buy Single Pass first: Rise of the Resistance ⭐ → Avatar → Guardians · Party of 4</div></div>
       <div class="ref-item"><div class="ref-label">EARLY ENTRY</div><div>Port Orleans guests enter all parks 30 min early — use it for Rise of the Resistance &amp; Cosmic Rewind!</div></div>
       <div class="ref-item"><div class="ref-label">TRANSPORT</div><div>Bus = all parks · Boat = Disney Springs only</div></div>
       <div class="ref-item"><div class="ref-label">PARADE DAY</div><div>Giuliana performs Mon Jun 29 @ 2:15 PM — Carousel of Progress, Tomorrowland ⭐</div></div>
@@ -178,6 +184,45 @@
       </div>
     </div>
   </div>
+  <div class="section-label">⚡ Lightning Lane</div>
+  <div class="quick-ref" id="ll-section">
+    <div class="quick-ref-header" onclick="toggleRef(this.parentElement)">
+      <h3>⚡ Book June 20 @ 7:00 AM</h3>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quick-ref-body">
+      <div class="ref-item">
+        <div class="ref-label">PARTY</div>
+        <div>4 people for all rides · Use My Disney Experience app · Add credit card + all 4 tickets before June 20</div>
+      </div>
+      <div class="ref-item" style="background:rgba(245,200,66,0.06); border-radius:8px; padding:8px 0;">
+        <div class="ref-label" style="color:var(--pink);">SINGLE PASS</div>
+        <div>
+          <div style="margin-bottom:6px;">Buy these <strong style="color:var(--pink);">one at a time, in this order</strong> the moment booking opens:</div>
+          <div class="item" style="padding:3px 0;"><div class="item-dot" style="background:var(--pink);"></div><div><strong>1⭐ Rise of the Resistance</strong> — Hollywood Studios · Tue Jun 30</div></div>
+          <div class="item" style="padding:3px 0;"><div class="item-dot" style="background:var(--pink);"></div><div><strong>2. Avatar: Flight of Passage</strong> — Animal Kingdom · Wed Jul 1</div></div>
+          <div class="item" style="padding:3px 0;"><div class="item-dot" style="background:var(--pink);"></div><div><strong>3. Guardians: Cosmic Rewind</strong> — EPCOT · Sun Jun 28</div></div>
+          <div style="margin-top:6px; font-size:11px; color:rgba(255,255,255,0.45);">~$25–35/person per ride · buy for all 4 each time</div>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-label">MULTI PASS</div>
+        <div>
+          <div style="margin-bottom:6px;">One fee/person/day — covers most other rides. Buy after Single Pass purchases:</div>
+          <div class="item" style="padding:2px 0;"><div class="item-dot"></div><div>EPCOT (Jun 28) → Remy's · Test Track · Soarin'</div></div>
+          <div class="item" style="padding:2px 0;"><div class="item-dot"></div><div>Hollywood Studios (Jun 30) → Slinky Dog · Tower of Terror · Millennium Falcon</div></div>
+          <div class="item" style="padding:2px 0;"><div class="item-dot"></div><div>Animal Kingdom (Jul 1) → Na'vi River Journey · Safaris</div></div>
+          <div class="item" style="padding:2px 0;"><div class="item-dot"></div><div>Magic Kingdom (Jun 29) → Seven Dwarfs · Tiana's · Space Mountain <span style="font-size:10px;color:rgba(255,255,255,0.4);">— buy morning of</span></div></div>
+          <div style="margin-top:6px; font-size:11px; color:rgba(255,255,255,0.45);">~$25–30/person/day · book one ride, tap in, then book next</div>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-label">EST. COST</div>
+        <div>~$300–400 total for party of 4 across all Lightning Lane</div>
+      </div>
+    </div>
+  </div>
+
   <div class="footer">✨ Made with magic for <span>The Dance Centre</span> group · Disney World June 2026 ✨</div>
 </div>
 <script>
