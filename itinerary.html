@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dance The World Itinerary</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #0d0d14; }
+  .bar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: #1a1a2e; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .bar span { color: #fff; font-family: -apple-system, sans-serif; font-size: 15px; font-weight: 600; }
+  .close-btn { background: rgba(255,255,255,0.12); color: #fff; border: none; border-radius: 10px; padding: 8px 16px; font-size: 14px; font-weight: 700; font-family: -apple-system, sans-serif; }
+  iframe { position: fixed; top: 52px; left: 0; right: 0; bottom: 0; width: 100%; height: calc(100% - 52px); border: none; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span>Dance The World Itinerary</span>
+    <button class="close-btn" onclick="goBack()">✕ Close</button>
+  </div>
+  <iframe src="Disney_Itinerary.pdf"></iframe>
+  <script>
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+</body>
+</html>
